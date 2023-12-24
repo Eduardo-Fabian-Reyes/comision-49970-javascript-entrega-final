@@ -37,16 +37,21 @@ function agendarTurno(){
 
         mostrarTurnos();
         guardarTurnos();
+
+        Swal.fire("Turno Agendado", "El turno se ha agendado correctamente.")
     } else { 
-        alert("Por favor, complete todos los campos del formulario.");
+        Swal.fire("Error", "Por favor, complete todos los campos del formulario.")
     }
 }
 
 function mostrarTurnos() { 
     agendaTurnos.innerHTML = " ";
     
-    listaTurnos.forEach(turno => {
+    listaTurnos.map(turno => {
         let fila = agendaTurnos.insertRow();
+
+        let fechaHora = new Date(turno.fecha + " " + turno.hora);
+        let formatoFechaHora = fechaHora.toLocaleString();
 
         fila.insertCell(0).textContent = turno.nombre;
         fila.insertCell(1).textContent = turno.raza;
@@ -59,7 +64,7 @@ function mostrarTurnos() {
     
 }
 
-formulario.addEventListener("submit", function(event) {
+formulario.addEventListener("submit", event => {
     event.preventDefault();
     agregarTurno();
 });
@@ -77,5 +82,14 @@ function cargarTurnos(){
         mostrarTurnos();
     }
 }
+
+// function obtenerDatosExternos(){  
+//     fetch('https://jsonplaceholder.typicode.com/users')
+//     .then(response => response.json())
+//     .then(data => console.log(data))
+//     .catch(error => console.error('Error:', error));
+// }    
+
+// window.addEventListener('load', obtenerDatosExternos)
 
 window.addEventListener('load', cargarTurnos);
