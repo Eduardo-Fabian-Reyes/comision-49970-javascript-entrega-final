@@ -1,5 +1,3 @@
-
-
 let listaTurnos = [];
 
 let formulario = document.getElementById("formularioTurnos");
@@ -66,7 +64,7 @@ function mostrarTurnos() {
 
 formulario.addEventListener("submit", event => {
     event.preventDefault();
-    agregarTurno();
+    agendarTurno();
 });
 
 mostrarTurnos();
@@ -83,13 +81,34 @@ function cargarTurnos(){
     }
 }
 
-// function obtenerDatosExternos(){  
-//     fetch('https://jsonplaceholder.typicode.com/users')
-//     .then(response => response.json())
-//     .then(data => console.log(data))
-//     .catch(error => console.error('Error:', error));
-// }    
-
-// window.addEventListener('load', obtenerDatosExternos)
-
 window.addEventListener('load', cargarTurnos);
+
+async function obtenerClima() {
+    const url = 'https://open-weather13.p.rapidapi.com/city/Buenos%20Aires';
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': '528c40d791msh929e5ba8ee0d23ap126b9djsned2e5d7d26ee',
+            'X-RapidAPI-Host': 'open-weather13.p.rapidapi.com'
+        }
+    };
+    
+    try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+
+        const iconCode = result.weather[0].icon;
+        const iconUrl = `https://openweathermap.org/img/w/${iconCode}.png`;
+        const contenedorClima = document.getElementById('contenedor-clima');
+        contenedorClima.innerHTML = `
+            <p>Temperatura: ${result.main.temp}°C</p>
+            <p>Descripción: ${result.weather[0].description}</p>
+            <p>Humedad: ${result.main.humidity}%</p>
+            <img src="${iconUrl}" alt="Icono del clima">
+        `;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+obtenerClima();

@@ -48,7 +48,21 @@ h1, h2 {
 #agendaTurnos{
     font-size: 1rem;
     font-family: 'Saira', sans-serif;
+    border-collapse: collapse;
+    width: 100%;
 }
+
+#agendaTurnos th, #agendaTurnos td{
+    border: .0625rem solid #253259;
+    padding: .5rem;
+    text-align: left;
+}
+
+#agendaTurnos th{
+    background-color: #A7C1D9;
+    color: #253259;
+}
+
 footer{
     display: flex;
     justify-content: center;
@@ -68,3 +82,17 @@ footer{
         padding: 1rem 1.5rem;
         cursor: pointer;
     }
+
+.clima {
+    text-align: center; 
+    font-family: 'Saira', sans-serif;
+    }
+    
+#contenedor-clima {
+    margin-top: 1.25rem; 
+    }
+    
+#contenedor-clima img {
+    width: 10rem;
+    height: auto; 
+}
